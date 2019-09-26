@@ -97,13 +97,13 @@
 	    <repository>
 	      <id>nexus</id>
 	      <name>Mithun Technologies Releases Nexus Repository</name>
-	      <url>http://13.233.70.107:8081/repository/mvnwar-release/</url>
+	      <url>http://13.127.11.9:8081/repository/mvnwar-release/</url>
 	    </repository>
 	    
 	    <snapshotRepository>
 	      <id>nexus</id>
 	      <name>Mithun Technologies Snapshot Nexus Repository </name>
-	      <url>http://13.233.70.107:8081/repository/mvnwar-snapshot/</url>
+	      <url>http://13.127.11.9:8081/repository/mvnwar-release/</url>
 	    </snapshotRepository>
 	    
 	</distributionManagement>
