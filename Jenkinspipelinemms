@@ -1,6 +1,6 @@
-node('paytmNode')
+node
 {
-    
+   def mavenHome=tool name: "maven3.6.2", type: "maven"
     echo "GitHub BranhName ${env.BRANCH_NAME}"
   echo "Jenkins Job Number ${env.BUILD_NUMBER}"
   echo "Jenkins Node Name ${env.NODE_NAME}"
@@ -8,51 +8,49 @@ node('paytmNode')
   echo "Jenkins Home ${env.JENKINS_HOME}"
   echo "Jenkins URL ${env.JENKINS_URL}"
   echo "JOB Name ${env.JOB_NAME}"
-  
   properties([
-       buildDiscarder(logRotator(numToKeepStr: '3')),
-       pipelineTriggers([
-           pollSCM('* * * * *')
-       ])
-     ])
+    buildDiscarder(logRotator(numToKeepStr: '5')),
+    pipelineTriggers([
+        pollSCM('* * * * *')
+    ])
+  ])
   
-  def mavenHome=tool name: "maven3.6.2", type: "maven" 
+
     
- stage('Checkout')
- {
-  git branch: 'development', credentialsId: '0f274b35-ba13-48f8-b4ea-cc11beace470', url: 'https://github.com/MithunTechnologiesDevOps/maven-web-application.git'
+    stage('checkout')
+     {
+        git branch: 'development', credentialsId: '9403d7f9-c188-44a0-aab4-87f1bf523964', url: 'https://github.com/ssh-sshd/maven-web-application.git'
+     }
+    
+    stage('build')
+     {
+       sh "${mavenHome}/bin/mvn clean package"
+     }
+    
+    stage('sonarqubeReport')
+     {
+       sh "${mavenHome}/bin/mvn sonar:sonar"
+     }
+    stage('uploadartifactsintonexus') 
+     {
+        sh "${mavenHome}/bin/mvn deploy"
+     }
+    stage('deploytotomcat')
+     {
+        sshagent(['18e6f182-2b71-474b-b677-fa9c67398243']) 
+         {
+            sh "scp -o StrictHostKeyChecking=no target/maven-web-application.war ec2-user@13.233.101.172:/opt/apache-tomcat-9.0.26/webapps/maven-web-application.war"  
+         }        
+     }
+    stage('EmailNotification')
+     {
+        emailext body: '''build is over..
 
- }
- 
- /*
- stage('Build'){
- sh "${mavenHome}/bin/mvn clean package"
- }  
- 
- stage('SonarQubeReport'){
- sh "${mavenHome}/bin/mvn sonar:sonar"
- }
- 
- stage('UploadArfifactintoNexus'){
- sh "${mavenHome}/bin/mvn deploy"
- }
 
-stage('DeployAppIntoTomcat'){
- sshagent(['2df2f727-417c-4e1b-8b48-a6c109440ac5']) {
- 
- sh "scp -o StrictHostKeyChecking=no target/maven-web-application.war ec2-user@13.233.103.234:/opt/apache-tomcat-9.0.24/webapps/maven-web-application.war"  
-	
- }
+        Regards
+        devareddy
+        9100575573
+        banglore''', subject: 'build is over-paytmproj', to: 'devareddy463@gmail.com' 
+     }
 }
-*/
 
-stage('EmailNotification'){
- emailext body: '''Build is over!!
-
- Regards,
- MSS,
- Bangalore,
- 9980923226.''', subject: 'Build is Over - MSS', to: 'devopstrainingblr@gmal.com'
- }
-
-}
