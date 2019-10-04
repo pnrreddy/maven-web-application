@@ -101,12 +101,12 @@
 	       </repository>
        </repositories>
    
-       <pluginrepositories> 
+       <pluginRepositories> 
               <pluginrepository>
 	              <id>nexus</id>
 	              <url>http://13.233.51.199:8081/repository/mvnwar-proxy/</url>
               </pluginrepository>
-       </pluginrepositories>
+       </pluginRepositories>
    </repositories>	   
     	
 	
