@@ -97,14 +97,14 @@
        <repositories>
 	       <repository>
 		       <id>nexus</id>
-		       <url>http://13.233.51.199:8081/repository/slave-group/</url>
+		       <url>http://13.233.51.199:8081/repository/mvnwar-proxy/</url>
 	       </repository>
        </repositories>
    
        <pluginrepositories> 
               <pluginrepository>
 	              <id>nexus</id>
-	              <url>http://13.233.51.199:8081/repository/slave-group/</url>
+	              <url>http://13.233.51.199:8081/repository/mvnwar-proxy/</url>
               </pluginrepository>
        </pluginrepositories>
    </repositories>	   
