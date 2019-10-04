@@ -92,6 +92,24 @@
 		
 	</dependencies>
 	
+	
+   <repositories>
+       <repositories>
+	       <repository>
+		       <id>nexus</id>
+		       <url>http://13.233.51.199:8081/repository/slave-group/</url>
+	       </repository>
+       </repositories>
+   
+       <pluginrepositories> 
+              <pluginrepository>
+	              <id>nexus</id>
+	              <url>http://13.233.51.199:8081/repository/slave-group/</url>
+              </pluginrepository>
+       </pluginrepositories>
+   </repositories>	   
+    	
+	
 	<distributionManagement>
 	
 	    <repository>
